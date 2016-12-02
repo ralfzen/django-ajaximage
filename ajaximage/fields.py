@@ -14,6 +14,7 @@ class AjaxImageField(Field):
 
     def __init__(self, *args, **kwargs):
         upload_to = kwargs.pop('upload_to', '')
+        show_delete = kwargs.pop('show_delete', True)
         max_height = kwargs.pop('max_height', 0)
         max_width = kwargs.pop('max_width', 0)
         crop = kwargs.pop('crop', False)
@@ -26,7 +27,8 @@ class AjaxImageField(Field):
             upload_to=upload_to,
             max_width=max_width,
             max_height=max_height,
-            crop=crop
+            crop=crop,
+            show_delete=show_delete
         )
         super(AjaxImageField, self).__init__(*args, **kwargs)
 

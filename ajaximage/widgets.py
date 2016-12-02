@@ -7,22 +7,7 @@ from django.core.files.storage import default_storage
 
 
 class AjaxImageWidget(widgets.TextInput):
-
-    html = """
-    <div class="ajaximage">
-        <a class="file-link" target="_blank" href="{file_url}">
-            <img class="file-img" src="{file_url}">
-        </a>
-        <a class="file-remove" href="#remove">Löschen</a>
-        <input class="file-path" type="hidden" value="{file_path}" id="{element_id}" name="{name}" />
-        <input type="file" class="file-input" />
-        <input class="file-dest" type="hidden" value="{upload_url}">
-        <div class="progress progress-striped active">
-            <div class="bar"></div>
-        </div>
-    </div>
-    """
-
+    
     class Media:
         js = (
             'ajaximage/js/ajaximage.js',
@@ -39,7 +24,31 @@ class AjaxImageWidget(widgets.TextInput):
         self.max_width = kwargs.pop('max_width', 0)
         self.max_height = kwargs.pop('max_height', 0)
         self.crop = kwargs.pop('crop', 0)
+        self.show_delete = kwargs.pop('show_delete', True)
         super(AjaxImageWidget, self).__init__(*args, **kwargs)
+
+    def get_html(self):
+        html = """
+        <div class="ajaximage">
+            <a class="file-link" target="_blank" href="{file_url}">
+                <img class="file-img" src="{file_url}">
+            </a>
+        """
+        if self.show_delete:
+            html += """
+                    <a class="file-remove" href="#remove">Löschen</a>
+            """
+        html += """
+            <input class="file-path" type="hidden" value="{file_path}" id="{element_id}" name="{name}" />
+            <input type="file" class="file-input" />
+            <input class="file-dest" type="hidden" value="{upload_url}">
+            <div class="progress progress-striped active">
+                <div class="bar"></div>
+            </div>
+        </div>
+        """
+        return html
+        
 
     def render(self, name, value, attrs=None):
         final_attrs = self.build_attrs(attrs)
@@ -61,7 +70,7 @@ class AjaxImageWidget(widgets.TextInput):
 
         file_name = os.path.basename(file_url)
 
-        output = self.html.format(upload_url=upload_url,
+        output = self.get_html().format(upload_url=upload_url,
                              file_url=file_url,
                              file_name=file_name,
                              file_path=file_path,
