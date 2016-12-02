@@ -29,5 +29,10 @@
 .ajaximage.img-active .file-link,
 .ajaximage.img-active .file-remove,
 .ajaximage.form-active .file-input {
-  display: block;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ajaximage.img-active .file-remove {
+  margin-top: 9px;
 }

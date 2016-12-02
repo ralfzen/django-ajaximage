@@ -13,7 +13,7 @@ class AjaxImageWidget(widgets.TextInput):
         <a class="file-link" target="_blank" href="{file_url}">
             <img class="file-img" src="{file_url}">
         </a>
-        <a class="file-remove" href="#remove">Bild Löschen</a>
+        <a class="file-remove" href="#remove">Löschen</a>
         <input class="file-path" type="hidden" value="{file_path}" id="{element_id}" name="{name}" />
         <input type="file" class="file-input" />
         <input class="file-dest" type="hidden" value="{upload_url}">
