@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from django.forms import widgets
 from django.utils.safestring import mark_safe
